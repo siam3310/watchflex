@@ -1,0 +1,9 @@
+@import '../../app/globals.scss';
+
+.Footer {
+	// display: fixed;
+	// bottom: 0;
+	// left: 0;
+	height: 40px;
+	@include center-align;
+}

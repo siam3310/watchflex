@@ -1,0 +1,62 @@
+//=============================VARIABLES=====================
+$base: 4px;
+
+$md1: $base * 320; //1280
+$md2: $base * 192; //768
+$md3: $base * 120; //480
+
+
+$dark: #17153B;
+$primary: #2E236C;
+$primaryLight: #433D8B;
+$light: #C8ACD6;
+$white: #ffffe4;
+$black: #000000;
+
+//===========================MIXINS=============================
+
+@mixin column-align {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin column-center-align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin row-center-align {
+  display: flex;
+  align-items: center;
+}
+
+@mixin center-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+//=============================GLOBAL CLASSES====================================
+// .body {
+//   background-color: antiquewhite;
+// }
+
+.container {
+  padding: 0 $base * 10; //40
+  max-width: $base * 295; //1180
+  @media (max-width: $md2) {
+    padding: 0 $base * 4; //16
+  }
+}
+
+.wrapper {
+  min-height: 100%;
+  @include column-align;
+}
+
+.main {
+  flex: 1 1 auto;
+}

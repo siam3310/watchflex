@@ -1,0 +1,14 @@
+@import '../../app/globals.scss';
+
+.Header {
+	display: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: $base * 10;
+	padding: $base * 3 0;
+	.container {
+		display: flex;
+		justify-content: space-between;
+	}
+}
