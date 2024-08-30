@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 export default function Home() {
   return (
-    <main className={cn(styles.main, 'main')}>
+    <main className={cn(styles.main, 'main', 'container')}>
       main page
     </main>
   );
