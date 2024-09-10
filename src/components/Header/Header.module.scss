@@ -1,14 +1,15 @@
 @import '../../app/globals.scss';
 
 .Header {
-	display: fixed;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: $base * 10;
-	padding: $base * 3 0;
+	height: $base * 18;
+	box-shadow: 1px 1px 10px #0000001f;
 	.container {
-		display: flex;
+		padding: $base * 3 0;
+		@include row-center-align;
 		justify-content: space-between;
 	}
 }

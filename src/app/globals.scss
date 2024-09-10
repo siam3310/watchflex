@@ -45,6 +45,7 @@ $black: #000000;
 // }
 
 .container {
+  margin: 0 auto;
   padding: 0 $base * 10; //40
   max-width: $base * 295; //1180
   @media (max-width: $md2) {
@@ -58,5 +59,6 @@ $black: #000000;
 }
 
 .main {
+  margin-top: $base * 15;
   flex: 1 1 auto;
 }
