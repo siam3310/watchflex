@@ -38,6 +38,21 @@ $black: #000000;
 }
 
 
+@mixin field {
+  display: flex;
+	justify-content: center;
+	padding: ($base * 2) ($base * 1.5);
+  border: 1px solid $light;
+  border-radius: 8px;
+  transition: 0.15s;
+  &:hover {
+    box-shadow: -1px 4px 10px rgba($color: $primaryLight, $alpha: 0.3);
+  }
+}
+
+@mixin field-focused {
+  border-color: $primary;
+}
 
 //=============================GLOBAL CLASSES====================================
 // .body {
