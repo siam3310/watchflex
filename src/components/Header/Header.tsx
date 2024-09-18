@@ -13,7 +13,7 @@ export const Header: React.FC<PropsType> = ({}) => {
 			<div className={cn(styles.container, "container")}>
 				<Logo />
 				<Search />
-				<Auth />
+				<Auth isAuthed={false} />
 			</div>
 		</header>
 	)

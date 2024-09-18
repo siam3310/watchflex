@@ -54,6 +54,11 @@ $black: #000000;
   border-color: $primary;
 }
 
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+
 //=============================GLOBAL CLASSES====================================
 // .body {
 //   background-color: antiquewhite;

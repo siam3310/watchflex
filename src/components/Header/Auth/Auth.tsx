@@ -1,21 +1,29 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import styles from './Auth.module.scss';
 import { LoginButton } from './LoginButton';
 import { ProfileIcon } from './ProfileIcon';
+import { LoginPopup } from './LoginPopup';
 
-type PropsType = {};
+type PropsType = {
+	isAuthed: boolean,
+};
 
-export const Auth: React.FC<PropsType> = () => {
-	//TODO: get this from props
-	let isAuthed = false;
+export const Auth: React.FC<PropsType> = ({isAuthed}) => {
+	const [isLoginPopupShow, setIsLoginPopupShow] = useState<boolean>(false);
 
 	return (
 		<div className={styles.Auth}>
 			{isAuthed ? 
 				<ProfileIcon />
 			:  
-				<LoginButton />
+				<LoginButton setIsLoginPopupShow={setIsLoginPopupShow} />
 			}
+			<LoginPopup 
+				isShow={isLoginPopupShow} 
+				setIsShow={setIsLoginPopupShow}
+			/>
 		</div>
 	)
 }
