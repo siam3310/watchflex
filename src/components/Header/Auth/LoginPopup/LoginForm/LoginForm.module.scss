@@ -1,0 +1,24 @@
+@import '../../../../../app/globals.scss';
+
+.LoginForm {
+	@include column-center-align;
+	.inputWrap {
+		@include field;
+		margin-bottom: $base * 2;
+		width: 100%;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		.input {}
+	}
+	.submitBtn {
+		padding: $base * 1.5 $base * 3;
+		color: $white;
+		background-color: $primary;
+		border-radius: $base;
+		transition: 0.2s;
+		&:hover {
+			transform: translateY($base);
+		}
+	}
+}

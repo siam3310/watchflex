@@ -1,0 +1,14 @@
+@import '../../../app/globals.scss';
+
+.Search {
+	@include field;
+	&._focused {
+		@include field-focused;
+	}
+	.input {
+		margin-right: $base;
+		max-width: $base * 80;
+		min-width: $base * 60;
+	}
+	.searchBtn {}
+}
