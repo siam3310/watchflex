@@ -11,7 +11,7 @@ type PropsType = {
 };
 
 export const Auth: React.FC<PropsType> = ({isAuthed}) => {
-	const [isLoginPopupShow, setIsLoginPopupShow] = useState<boolean>(false);
+	const [isLoginPopupShow, setIsLoginPopupShow] = useState<boolean>(true);
 
 	return (
 		<div className={styles.Auth}>
