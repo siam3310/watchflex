@@ -11,7 +11,7 @@ type FieldsType = {
 };
 
 export const LoginForm: React.FC<PropsType> = ({}) => {
-	const { register, handleSubmit } = useForm<FieldsType>();
+	const { register, handleSubmit, formState: { errors } } = useForm<FieldsType>();
 
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -20,10 +20,9 @@ export const LoginForm: React.FC<PropsType> = ({}) => {
 		if(formRef.current) {
 			const formData = new FormData(formRef.current);
 			let response = await fetch('/api/auth', {
-				method: 'POST',
-				body: formData,
+				method: 'GET',
+				//body: formData,
 			});
-			response = await response.json()
 		}
 	}
 
@@ -35,18 +34,27 @@ export const LoginForm: React.FC<PropsType> = ({}) => {
 					className={styles.input}
 					type='email'
 					required
-					{...register('email')}
+					{...register('email', {required: true})}
 				/>
+				{errors.email && <p className={styles.errorMessage}>{errors.email.message}</p> }
 			</div>
 			<div className={styles.inputWrap}>
 				<input 
 					placeholder='Пароль'
 					className={styles.input}
 					type='password'
-					required
-					{...register('password')}
+					{...register('password', {
+						required: "Це поле є обов'язковим",
+						minLength: {value: 8, message: 'Мінімальна довжина паролю - 8 символів'},
+						maxLength: {value: 24, message: 'Максимальна довжина паролю - 24 символи'},
+						pattern: {
+							value: /^(?=.*?[A-Z]|[А-Я])(?=.*?[a-z]|[а-я])(?=.*?[0-9]).{8,}$/,
+							message: 'Пароль мусить містити хоча б 1 букву і цифру'
+						}
+					})}
 				/>
 			</div>
+			{errors.password && <p className={styles.errorMessage}>{errors.password.message}</p> }
 
 			<button
 				className={styles.submitBtn}

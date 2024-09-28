@@ -2,6 +2,7 @@
 
 .LoginForm {
 	@include column-center-align;
+	width: 100%;
 	.inputWrap {
 		@include field;
 		margin-bottom: $base * 2;
@@ -20,5 +21,9 @@
 		&:hover {
 			transform: translateY($base);
 		}
+	}
+
+	.errorMessage {
+		margin-bottom: 4px;
 	}
 }
