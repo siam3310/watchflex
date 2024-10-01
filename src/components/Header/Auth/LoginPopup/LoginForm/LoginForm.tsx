@@ -18,11 +18,13 @@ export const LoginForm: React.FC<PropsType> = ({}) => {
 	const onSubmit: SubmitHandler<FieldsType> = async data => {
 		console.log(formRef.current);
 		if(formRef.current) {
-			const formData = new FormData(formRef.current);
-			let response = await fetch('/api/auth', {
+			const response = await fetch('/api/guestSession', {
 				method: 'GET',
-				//body: formData,
 			});
+
+			//const data = JSON.parse(await response.json());
+
+			//console.log('data', data);
 		}
 	}
 
