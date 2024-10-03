@@ -1,8 +1,10 @@
 'use client'
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './LoginForm.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { RequestTokenViewModel } from '@/models';
+import { useRouter } from 'next/navigation';
 
 type PropsType = {};
 type FieldsType = {
@@ -13,20 +15,34 @@ type FieldsType = {
 export const LoginForm: React.FC<PropsType> = ({}) => {
 	const { register, handleSubmit, formState: { errors } } = useForm<FieldsType>();
 
+	const [requestToken, setRequestToken] = useState<string | null>(null);
+
 	const formRef = useRef<HTMLFormElement>(null);
 
+	const router = useRouter();
+
 	const onSubmit: SubmitHandler<FieldsType> = async data => {
-		console.log(formRef.current);
 		if(formRef.current) {
-			const response = await fetch('/api/guestSession', {
+			const response = await fetch('/api/auth', {
 				method: 'GET',
 			});
 
-			//const data = JSON.parse(await response.json());
+			const data: RequestTokenViewModel = await response.json();
 
-			//console.log('data', data);
+			console.log(data);
+
+			if(data.requestToken) {
+				setRequestToken(data.requestToken);
+			}
 		}
 	}
+
+	useEffect(() => {
+		console.log(requestToken);
+		if(requestToken) {
+			router.push(`https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${process.env.BASE_URL}`);
+		}
+	}, [requestToken])
 
 	return (
 		<form className={styles.LoginForm} onSubmit={handleSubmit(onSubmit)} ref={formRef}>
