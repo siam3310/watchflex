@@ -11,14 +11,14 @@ type PropsType = {
 };
 
 export const Auth: React.FC<PropsType> = ({isAuthed}) => {
-	const [isLoginPopupShow, setIsLoginPopupShow] = useState<boolean>(true);
+	const [isLoginPopupShow, setIsLoginPopupShow] = useState<boolean>(false);
 
 	return (
 		<div className={styles.Auth}>
 			{isAuthed ? 
 				<ProfileIcon />
 			:  
-				<LoginButton setIsLoginPopupShow={setIsLoginPopupShow} />
+				<LoginButton />
 			}
 			<LoginPopup 
 				isShow={isLoginPopupShow} 

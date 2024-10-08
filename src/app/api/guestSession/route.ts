@@ -1,4 +1,3 @@
-import { SessionDataModel } from "@/models";
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async () => {

@@ -1,7 +1,13 @@
-export type SessionDataModel = {
+export type SessionResponseDataModel = {
 	success: boolean,
-	guest_session_id: string,
+	session_id: string,
 	expires_at: string
+}
+
+export type SessionDataViewModel = {
+	success: boolean,
+	id: string,
+	expiresAt: string
 }
 
 export type RequestTokenResponseDataModel = {
@@ -14,4 +20,5 @@ export type RequestTokenViewModel = {
 	requestToken?: string,
 	expiresAt?: string,
 	error: boolean,
+	approved: boolean,
 }

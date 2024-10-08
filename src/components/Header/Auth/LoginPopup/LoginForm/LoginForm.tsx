@@ -42,7 +42,7 @@ export const LoginForm: React.FC<PropsType> = ({}) => {
 		if(requestToken) {
 			router.push(`https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${process.env.BASE_URL}`);
 		}
-	}, [requestToken])
+	}, [requestToken]);
 
 	return (
 		<form className={styles.LoginForm} onSubmit={handleSubmit(onSubmit)} ref={formRef}>
