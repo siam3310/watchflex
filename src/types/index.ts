@@ -1,0 +1,1 @@
+export type ActionStatusType = 'loading' | 'error' | 'success'

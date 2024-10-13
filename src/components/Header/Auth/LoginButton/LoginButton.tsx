@@ -4,13 +4,14 @@ import React, { useEffect, useState } from 'react';
 import styles from './LoginButton.module.scss';
 import { RequestTokenViewModel } from '@/models';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ActionStatusType } from '@/types';
 
 type PropsType = {
-	//setIsLoginPopupShow: (v: boolean) => void,
+	setActionStatus: (v: ActionStatusType | null) => void,
 	//requestLogin: () => void,
 };
 
-export const LoginButton: React.FC<PropsType> = ({}) => {
+export const LoginButton: React.FC<PropsType> = ({setActionStatus}) => {
 	const [requestTokenData, setRequestTokenData] = useState<RequestTokenViewModel | null>(null);
 	const [isTokenApproved, setIsTokenApproved] = useState<boolean>(false);
 
@@ -19,6 +20,7 @@ export const LoginButton: React.FC<PropsType> = ({}) => {
 
 	//get request token
 	const handleClick = async () => {
+		setActionStatus('loading');
 		const response = await fetch('/api/auth', {
 			method: 'GET',
 		});
@@ -29,6 +31,8 @@ export const LoginButton: React.FC<PropsType> = ({}) => {
 
 		if(data.requestToken) {
 			setRequestTokenData(data);
+		} else {
+			setActionStatus('error');
 		}
 	}
 
@@ -51,6 +55,11 @@ export const LoginButton: React.FC<PropsType> = ({}) => {
 		const currTokenData = JSON.parse(localStorage.getItem('request_token_data') || '');
 
 		if(searchParams.get('approved') && searchParams.get('request_token')) {
+			console.log(setActionStatus)
+			setActionStatus('success');
+			setTimeout(() => {
+				setActionStatus(null);
+			}, 2000)
 			setIsTokenApproved(true);
 		}
 
@@ -67,7 +76,7 @@ export const LoginButton: React.FC<PropsType> = ({}) => {
 					method: 'POST',
 				});
 
-				const json = response.json();
+				const json = await response.json();
 
 				console.log('json with session id', json);
 			})()
