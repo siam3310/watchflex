@@ -18,6 +18,8 @@ export const LoginButton: React.FC<PropsType> = ({setActionStatus}) => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
+	console.log(setActionStatus);
+
 	//get request token
 	const handleClick = async () => {
 		setActionStatus('loading');
