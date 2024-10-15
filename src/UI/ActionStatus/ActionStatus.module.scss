@@ -1,0 +1,10 @@
+@import '../../app/globals.scss';
+
+.ActionStatus {
+	position: fixed;
+	top: 80px;
+	right: 20px;
+	@media (max-width: $md2) {
+
+	}
+}
