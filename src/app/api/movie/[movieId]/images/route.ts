@@ -1,10 +1,10 @@
 import { parseSearchParams } from "@/utils/server/parseSearchParams";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
-	const movie_id = parseSearchParams(req.url).movie_id;
+export const GET = async (req: NextRequest, context: any) => {
+	const { movieId } = context.params;
 
-	const url = `https://api.themoviedb.org/3/movie/${movie_id}/images`;
+	const url = `https://api.themoviedb.org/3/movie/${movieId}/images`;
 	const options = {
 		method: 'GET',
 		headers: {

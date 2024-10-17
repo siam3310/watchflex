@@ -3,10 +3,10 @@ import { parseSearchParams } from "@/utils/server/parseSearchParams";
 import { NextRequest, NextResponse } from "next/server";
 import { TiArrowSync } from "react-icons/ti";
 
-export const GET = async (req: NextRequest) => {
-	const movie_id = parseSearchParams(req.url).movie_id;
+export const GET = async (req: NextRequest, context: any) => {
+	const { movieId } = context.params;
 
-	const url = `https://api.themoviedb.org/3/movie/${movie_id}?language=en-US`;
+	const url = `https://api.themoviedb.org/3/movie/${movieId}?language=uk-UA`;
 	const options = {
 		method: 'GET',
 		headers: {
@@ -17,8 +17,6 @@ export const GET = async (req: NextRequest) => {
 
 	const response = await fetch(url, options);
 	const data = await response.json();
-
-	console.log('movieid', movie_id);
 
 	if(response.status === 200) {
 		return NextResponse.json(data, {status: response.status});
