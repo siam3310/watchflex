@@ -1,12 +1,13 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
 import cn from 'classnames';
-import { Movies } from "@/components/Movies";
+import { MoviesList } from "@/components/MoviesList";
 
 export default function Home() {
   return (
     <main className={cn(styles.main, 'main', 'container')}>
-      <Movies />
+      {/* temporary */}
+      <MoviesList page={1} />
     </main>
   );
 }
