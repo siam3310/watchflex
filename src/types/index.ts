@@ -19,4 +19,5 @@ export type MovieDataType = {
 
 export type ErrorReturnType = {
 	message: string,
+	error: boolean,
 }

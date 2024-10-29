@@ -30,21 +30,23 @@ const getMappedData = (data: RequestMovieDataModel[]): MovieDataType[] => {
 export const GET = async (req: NextRequest): Promise<ReturnType> => {
 	const page = parseSearchParams(req.url).page;
 
+	console.log('page', page);
+
 	const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
 	const options = {
-	method: 'GET',
-	headers: {
-		accept: 'application/json',
-		Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`
-	}
+		method: 'GET',
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`
+		}
 	};
 
 	const response = await fetch(url, options);
 	const data: RequestMovieDataModel[] = await response.json();
 
-	if(data.length > 0) {
-		return NextResponse.json(getMappedData(data), {status: response.status});
+	if(response.ok) {
+		return NextResponse.json(getMappedData(data.length > 0 ? data : []), {status: response.status});
 	} else {
-		return NextResponse.json({message: 'no data'}, {status: response.status});
+		return NextResponse.json({message: 'error', error: false}, {status: response.status})
 	}
 }
