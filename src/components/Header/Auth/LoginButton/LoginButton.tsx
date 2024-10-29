@@ -71,7 +71,6 @@ export const LoginButton: React.FC<PropsType> = ({setActionStatus}) => {
 	}, [searchParams]);
 
 	useEffect(() => {
-		console.log('is token approved', isTokenApproved);
 		if(isTokenApproved) {
 			(async () => {
 				const response = await fetch('/api/auth', {
@@ -90,8 +89,7 @@ export const LoginButton: React.FC<PropsType> = ({setActionStatus}) => {
 			className={styles.LoginButton} 
 			onClick={handleClick}
 		>
-			Login
-		</button> 
-		/**onclick -> open login modal(local storage) */		
+			{isTokenApproved ? 'Ви увійшли' : 'Увійти'}
+		</button> 		
 	)
 }

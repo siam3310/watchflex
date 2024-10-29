@@ -1,4 +1,4 @@
-import { RequestMovieDataModel } from "@/models";
+import { RequestMoviesDataModel, MovieDataModel } from "@/models";
 import { ErrorReturnType, MovieDataType } from "@/types";
 import { parseSearchParams } from "@/utils/server/parseSearchParams";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,7 +8,7 @@ type ReturnType =
 	NextResponse<ErrorReturnType>
 ;
 
-const getMappedData = (data: RequestMovieDataModel[]): MovieDataType[] => {
+const getMappedData = (data: MovieDataModel[]): MovieDataType[] => {
 	return data.map(obj => ({
 		adult: obj.adult,
 		backdropPath: obj.backdrop_path,
@@ -32,7 +32,7 @@ export const GET = async (req: NextRequest): Promise<ReturnType> => {
 
 	console.log('page', page);
 
-	const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
+	const url = `https://api.themoviedb.org/3/movie/popular?language=uk-UA&page=${page}`;
 	const options = {
 		method: 'GET',
 		headers: {
@@ -42,10 +42,12 @@ export const GET = async (req: NextRequest): Promise<ReturnType> => {
 	};
 
 	const response = await fetch(url, options);
-	const data: RequestMovieDataModel[] = await response.json();
+	const data: RequestMoviesDataModel = await response.json();
+
+	console.log('movies data', data);
 
 	if(response.ok) {
-		return NextResponse.json(getMappedData(data.length > 0 ? data : []), {status: response.status});
+		return NextResponse.json(getMappedData(data.results.length > 0 ? data.results : []), {status: response.status});
 	} else {
 		return NextResponse.json({message: 'error', error: false}, {status: response.status})
 	}

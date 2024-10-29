@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
 	const page = req.nextUrl.searchParams.get('page');
 
-	const url = `https://api.themoviedb.org/3/movie/top_rated?page=${page}`;
+	const url = `https://api.themoviedb.org/3/movie/top_rated?language=uk-UA&page=${page}`;
 	const options = {
 		method: 'GET',
 		headers: {

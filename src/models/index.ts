@@ -23,7 +23,7 @@ export type RequestTokenViewModel = {
 	approved: boolean,
 }
 
-export type RequestMovieDataModel = {
+export type MovieDataModel = {
 	adult: boolean,
 	backdrop_path: string,
 	genre_ids: number[],
@@ -38,4 +38,11 @@ export type RequestMovieDataModel = {
 	video: boolean,
 	vote_average: number,
 	vote_count: number,
+}
+
+export type RequestMoviesDataModel = {
+	page: number,
+	results: MovieDataModel[],
+	total_pages: number,
+	total_results: number,
 }

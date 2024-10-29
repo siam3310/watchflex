@@ -4,7 +4,7 @@ export const GET = async (req: NextRequest, context: any) => {
 	const { movieId } = context.params;
 	const page = req.nextUrl.searchParams.get('page');
 
-	const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?page=${page || 1}`;
+	const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=uk-UA/page=${page || 1}`;
 	const options = {
 		method: 'GET',
 		headers: {
