@@ -30,8 +30,6 @@ const getMappedData = (data: MovieDataModel[]): MovieDataType[] => {
 export const GET = async (req: NextRequest): Promise<ReturnType> => {
 	const page = parseSearchParams(req.url).page;
 
-	console.log('page', page);
-
 	const url = `https://api.themoviedb.org/3/movie/popular?language=uk-UA&page=${page}`;
 	const options = {
 		method: 'GET',
@@ -43,8 +41,6 @@ export const GET = async (req: NextRequest): Promise<ReturnType> => {
 
 	const response = await fetch(url, options);
 	const data: RequestMoviesDataModel = await response.json();
-
-	console.log('movies data', data);
 
 	if(response.ok) {
 		return NextResponse.json(getMappedData(data.results.length > 0 ? data.results : []), {status: response.status});

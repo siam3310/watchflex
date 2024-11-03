@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./nullstyle.scss"
 import "./globals.scss";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import cn from 'classnames';
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Watch Flex",
@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ua">
-      <body className={cn(inter.className, 'body')}>
+    <html lang="ua">  
+      <body className={cn(montserrat.className, 'body')}>
         <div className="wrapper">
           <Header />
           {children}

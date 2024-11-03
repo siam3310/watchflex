@@ -50,8 +50,6 @@ export const LoginButton: React.FC<PropsType> = ({setActionStatus}) => {
 		}
 	}, [requestTokenData?.requestToken]);
 
-	console.log('search params', searchParams.toString(), searchParams.get('approved'));
-
 	//set approved status
 	useEffect(() => {
 		const currTokenData = JSON.parse(localStorage.getItem('request_token_data') || '');
@@ -89,7 +87,7 @@ export const LoginButton: React.FC<PropsType> = ({setActionStatus}) => {
 			className={styles.LoginButton} 
 			onClick={handleClick}
 		>
-			{isTokenApproved ? 'Ви увійшли' : 'Увійти'}
+			Увійти
 		</button> 		
 	)
 }
