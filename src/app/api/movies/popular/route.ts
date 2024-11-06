@@ -1,10 +1,10 @@
 import { RequestMoviesDataModel, MovieDataModel } from "@/models";
-import { ErrorReturnType, MovieDataType } from "@/types";
+import { ErrorReturnType, MovieDataType, MoviesDataType } from "@/types";
 import { parseSearchParams } from "@/utils/server/parseSearchParams";
 import { NextRequest, NextResponse } from "next/server";
 
 type ReturnType = 
-	NextResponse<MovieDataType[]> | 
+	NextResponse<MoviesDataType> | 
 	NextResponse<ErrorReturnType>
 ;
 
@@ -43,7 +43,12 @@ export const GET = async (req: NextRequest): Promise<ReturnType> => {
 	const data: RequestMoviesDataModel = await response.json();
 
 	if(response.ok) {
-		return NextResponse.json(getMappedData(data.results.length > 0 ? data.results : []), {status: response.status});
+		return NextResponse.json({
+			results: getMappedData(data.results.length > 0 ? data.results : []),
+			totalCount: data.total_results,
+			totalPages: data.total_pages
+
+		}, {status: response.status});
 	} else {
 		return NextResponse.json({message: 'error', error: false}, {status: response.status})
 	}

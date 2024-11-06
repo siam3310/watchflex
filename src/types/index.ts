@@ -17,6 +17,12 @@ export type MovieDataType = {
 	voteCount: number,
 }
 
+export type MoviesDataType = {
+	results: MovieDataType[],
+	totalCount: number,
+	totalPages: number
+}
+
 export type ErrorReturnType = {
 	message: string,
 	error: boolean,
