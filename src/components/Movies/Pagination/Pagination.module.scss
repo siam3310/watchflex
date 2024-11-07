@@ -1,0 +1,7 @@
+@import '../../../app/globals.scss';
+
+.Pagination {
+	display: flex;
+	justify-content: center;
+	gap: $base;
+}

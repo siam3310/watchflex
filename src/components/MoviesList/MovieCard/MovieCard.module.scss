@@ -1,0 +1,55 @@
+@import '../../../app/globals.scss';
+
+.MovieCard {
+	position: relative;
+	&:hover {
+		.poster::after {
+			opacity: 0.5;
+		}
+		.info {
+			transform: translateY(0);
+			opacity: 1;
+			z-index: 2;
+		}
+	}
+	.poster {
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			opacity: 0;
+			transition: 0.2s;
+			z-index: 2;
+		}
+		.img {
+
+		}
+	}
+	.info {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: $base * 3;
+		@include column-align;
+		justify-content: flex-end;
+		width: 100%;
+		height: 100%;
+		color: #fff;
+		transform: translateY(-50%);
+		opacity: 0;
+		transition: 0.2s;
+		z-index: -2;
+		.title {
+			margin-bottom: $base;
+			font-size: $base * 4.5;
+			font-weight: 500;
+		}
+		.rating {
+
+		}
+	}
+}

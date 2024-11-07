@@ -1,0 +1,20 @@
+@import '../../../../app/globals.scss';
+
+.PaginationButton {
+	padding: $base;
+	@include center-align;
+	min-width: $base * 7;
+	height: $base * 7;
+	border: 1px solid $primary;
+	border-radius: $base;
+	.text {
+		font-size: $base * 3,5;
+		color: $primary;
+	}
+	&._active, &:active {
+		text-decoration: underline;
+	}
+	&:hover {
+		
+	}
+}
