@@ -40,7 +40,7 @@ export const LoginForm: React.FC<PropsType> = ({}) => {
 	useEffect(() => {
 		console.log(requestToken);
 		if(requestToken) {
-			router.push(`https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${process.env.BASE_URL}`);
+			router.push(`https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${process.env.BASE_URL + '?page=1'}`);
 		}
 	}, [requestToken]);
 

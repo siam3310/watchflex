@@ -13,14 +13,24 @@ export const Pagination: React.FC<PropsType> = ({pagesNum, currPage, changePage,
 	const needLeftDots = currPage > Math.round(buttonToShow / 2);
 	const needRightDots = (pagesNum <= 100 ? pagesNum : 100) - currPage > Math.round(buttonToShow / 2);
 
+	const prevPage = () => {
+		changePage(currPage-1);
+	}
+
+	const nextPage = () => {
+		changePage(currPage+1);
+	}
+
 	console.log(currPage);
 
 	return (
 		<div className={styles.Pagination}>	
-			<button>
-				-
-			</button>
-			<PaginationButton currPage={1} changePage={changePage}>1</PaginationButton>
+			{currPage > 1 &&
+				<button onClick={prevPage}>
+					-
+				</button>
+			}
+			<PaginationButton currPage={1} changePage={changePage} active={currPage===1}>1</PaginationButton>
 			{needLeftDots && <span>...</span>}
 			{currPage <= 3 ?
 				<>
@@ -43,9 +53,12 @@ export const Pagination: React.FC<PropsType> = ({pagesNum, currPage, changePage,
 			}
 			{needRightDots && <span>...</span>}
 			<PaginationButton currPage={pagesNum <= 100 ? pagesNum : 100} changePage={changePage}>{pagesNum <= 100 ? pagesNum : 100}</PaginationButton>
-			<button>
-				+
-			</button>
+			
+			{currPage < 100 &&
+				<button onClick={nextPage}>
+					+
+				</button>
+			}
 		</div>
 	)
 }
