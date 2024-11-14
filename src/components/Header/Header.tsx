@@ -11,9 +11,15 @@ export const Header: React.FC<PropsType> = ({}) => {
 	return (
 		<header className={styles.Header}>
 			<div className={cn(styles.container, "container")}>
-				<Logo />
-				<Search />
-				<Auth />
+				<div className={styles.logo}>
+					<Logo />
+				</div>
+				<div className={styles.search}>
+					<Search />
+				</div>
+				<div className={styles.auth}>
+					<Auth />
+				</div>
 			</div>
 		</header>
 	)

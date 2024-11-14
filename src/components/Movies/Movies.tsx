@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import styles from './Movies.module.scss';
 import { MoviesList } from '../MoviesList';
 import { axiosInstance } from '@/lib/axios';
@@ -57,7 +57,9 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 			{moviesData?.results && moviesData.results.length > 0 ?
 				<>
 					<div className={styles.list}>
-						<MoviesList moviesData={moviesData.results}/>
+						<Suspense fallback={<Preloader />}>
+							<MoviesList moviesData={moviesData.results}/>
+						</Suspense>
 					</div>
 					<Pagination
 						changePage={changePage}
@@ -69,16 +71,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 				<p>No movies</p>
 			}
 
-			{isFetching ?
-				<Preloader />
-			:
-				<button
-					className={styles.loadMoreBtn}
-					// onClick={loadMore}
-				>
-					Завантажити більше
-				</button>	
-			}
+			{isFetching && <Preloader />}
 		</div>
 	)
 }

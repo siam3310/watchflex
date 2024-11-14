@@ -11,6 +11,7 @@ type PropsType = {};
 export const Search: React.FC<PropsType> = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+	const [isInputShow, setIsInputShow] = useState<boolean>(false);
 
 		
 	//manual focus on input, because box is bigger and has input appereance
@@ -34,11 +35,11 @@ export const Search: React.FC<PropsType> = () => {
 
 	return (
 		<div className={cn(styles.Search, isInputFocused ? styles._focused : '')} onClick={handleClick}>
-			<div className={styles.input}>
+			<div className={cn(styles.input, isInputShow ? styles._show : '')}>
 				<SearchInput ref={inputRef} />
 			</div>
 			<div className={styles.searchBtn}>
-				<SearchButton />
+				<SearchButton isInputShow={isInputShow} setIsInputShow={setIsInputShow}/>
 			</div>
 		</div>
 	)

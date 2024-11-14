@@ -2,6 +2,17 @@
 
 .Search {
 	@include field;
+	@media (max-width: $md2) {
+		.input {
+			max-width: 100%;
+			width: 0;
+			display: none;
+			&._show {
+				display: block;
+				width: 100%;
+			}
+		}
+	}
 	&._focused {
 		@include field-focused;
 	}

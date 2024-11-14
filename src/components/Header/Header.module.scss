@@ -10,8 +10,20 @@
 	background-color: #fff;
 	z-index: 10;
 	.container {
-		padding: $base * 3 0;
+		padding: $base * 3 $base * 2;
 		@include row-center-align;
 		justify-content: space-between;
+
+		@media (max-width: $md2) {
+			.search {
+				order: 1;
+			}
+			.logo {
+				order: 2;
+			}
+			.auth {
+				order: 3;
+			}
+		}
 	}
 }
