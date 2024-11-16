@@ -23,6 +23,8 @@ export const Pagination: React.FC<PropsType> = ({pagesNum, currPage, changePage,
 
 	console.log(currPage);
 
+	//TODO: fix pagination in the case in pages count < 5
+
 	return (
 		<div className={styles.Pagination}>	
 			{currPage > 1 &&

@@ -1,5 +1,6 @@
 import { RequestMoviesDataModel, MovieDataModel } from "@/models";
 import { ErrorReturnType, MovieDataType, MoviesDataType } from "@/types";
+import { mapMovieData } from "@/utils/server/mapMovieData";
 import { parseSearchParams } from "@/utils/server/parseSearchParams";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,25 +8,6 @@ type ReturnType =
 	NextResponse<MoviesDataType> | 
 	NextResponse<ErrorReturnType>
 ;
-
-const getMappedData = (data: MovieDataModel[]): MovieDataType[] => {
-	return data.map(obj => ({
-		adult: obj.adult,
-		backdropPath: obj.backdrop_path,
-		genreIds: obj.genre_ids,
-		describtion: obj.overview,
-		id: obj.id,
-		originalLanguage: obj.original_language,
-		originalTitle: obj.original_title,
-		popularity: obj.popularity,
-		posterUrl: obj.poster_path,
-		rating: obj.vote_average,
-		releaseDate: obj.release_date,
-		title: obj.title,
-		video: obj.video,
-		voteCount: obj.vote_count
-	}));
-}
 
 export const GET = async (req: NextRequest): Promise<ReturnType> => {
 	const page = parseSearchParams(req.url).page;
@@ -44,7 +26,7 @@ export const GET = async (req: NextRequest): Promise<ReturnType> => {
 
 	if(response.ok) {
 		return NextResponse.json({
-			results: getMappedData(data.results.length > 0 ? data.results : []),
+			results: mapMovieData(data.results.length > 0 ? data.results : []),
 			totalCount: data.total_results,
 			totalPages: data.total_pages
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Search.module.scss';
 import { SearchInput } from './SearchInput';
-import { SearchButton } from './SearchButton/SearchButton';
+import { SearchButton } from '../../Movies/SearchButton/SearchButton';
 import cn from 'classnames'
 
 type PropsType = {};
@@ -13,10 +13,14 @@ export const Search: React.FC<PropsType> = () => {
 	const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
 	const [isInputShow, setIsInputShow] = useState<boolean>(false);
 
+	useEffect(() => {
+		const isShowing = localStorage.getItem('isSearchInputShow') === 'true';
+		setIsInputShow(isShowing);
+	}, [])
 		
 	//manual focus on input, because box is bigger and has input appereance
 	const handleClick = () => {
-		console.log('click', inputRef.current);
+		//TODO: change in localstorage
 		inputRef.current && inputRef.current.focus();
 		inputRef.current && setIsInputFocused(true);
 	}
@@ -38,9 +42,8 @@ export const Search: React.FC<PropsType> = () => {
 			<div className={cn(styles.input, isInputShow ? styles._show : '')}>
 				<SearchInput ref={inputRef} />
 			</div>
-			<div className={styles.searchBtn}>
-				<SearchButton isInputShow={isInputShow} setIsInputShow={setIsInputShow}/>
-			</div>
+			{/* added id for react portal in Movies.tsx */}
+			<div className={styles.searchBtn} id='header_searchBtn'></div>
 		</div>
 	)
 }
