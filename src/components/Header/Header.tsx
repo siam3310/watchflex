@@ -4,6 +4,7 @@ import styles from './Header.module.scss';
 import { Auth } from './Auth';
 import cn from 'classnames'
 import { Search } from './Search';
+import { CloseBtn } from './CloseBtn';
 
 type PropsType = {};
 
@@ -16,6 +17,7 @@ export const Header: React.FC<PropsType> = ({}) => {
 				</div>
 				<div className={styles.search}>
 					<Search />
+					<CloseBtn />
 				</div>
 				<div className={styles.auth}>
 					<Auth />

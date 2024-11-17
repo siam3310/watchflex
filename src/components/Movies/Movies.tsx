@@ -37,14 +37,18 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 
 	const page = Number(params.get('page')) || 1;
 
-	const isSearchInputShow = localStorage.getItem('isSearchInputShow') === 'true'; // true | false -> boolean
-	const searchQuery = localStorage.getItem('searchQuery');
-
 	const [moviesData, setMoviesData] = useState<MoviesDataType>();
-	
+	const [isSearchInputShow, setIsSearchInputShow] = useState<boolean>(false);	
 	const [isFetching, setIsFetching] = useState<boolean>(false);
 	//TODO: close search -> method - popular
 	const [moviesSource, setMoviesSource] = useState<MoviesSourcesType>('popular');
+
+	//chnages in local storage -> local state
+	const storageListener = () => {
+		console.log('listenerrr');
+		const isShowing = localStorage.getItem('isSearchInputShow') === 'true'; // true | false -> boolean
+		setIsSearchInputShow(isShowing);
+	}
 
 	//modify the url search params
 	const changePage = (page: number) => {
@@ -59,6 +63,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 
 	//general function for searching movies
 	const searchMovies = async () => {
+		const searchQuery = localStorage.getItem('searchQuery');
 		const data = await getMoviesByQuery(searchQuery || '', page);
 		console.log(data);
 		//@ts-expect-error
@@ -74,7 +79,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 		setMoviesData(movies);
 	}
 	
-
+	//page chnages -> request new movies
 	useEffect(() => {
 		console.log('request movies');
 		(async () => {
@@ -89,6 +94,21 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 			setIsFetching(false);
 		})();
 	}, [page]);
+
+	useEffect(() => {
+		if(!isSearchInputShow) {
+			setMoviesSource('popular');
+			changePage(1);
+		}
+	}, [isSearchInputShow]);
+
+	useEffect(() => {
+		window.addEventListener('storage', storageListener);
+
+		return () => {
+			window.removeEventListener('storage', storageListener);
+		}
+	}, [])
 
 	console.log('movies data', moviesData);
 

@@ -13,6 +13,11 @@
 		@include row-center-align;
 		justify-content: space-between;
 
+		.search {
+			@include row-center-align;
+			gap: 4px;
+		}
+
 		@media (max-width: $md2) {
 			.search {
 				order: 1;
