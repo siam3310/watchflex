@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { createPortal } from 'react-dom';
 import { SearchButton } from './SearchButton/SearchButton';
 import axios from 'axios';
+import { useSearchStore } from '@/store/useSearchStore';
 
 type PropsType = {};
 
@@ -38,17 +39,12 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	const page = Number(params.get('page')) || 1;
 
 	const [moviesData, setMoviesData] = useState<MoviesDataType>();
-	const [isSearchInputShow, setIsSearchInputShow] = useState<boolean>(false);	
 	const [isFetching, setIsFetching] = useState<boolean>(false);
 	//TODO: close search -> method - popular
 	const [moviesSource, setMoviesSource] = useState<MoviesSourcesType>('popular');
 
-	//chnages in local storage -> local state
-	const storageListener = () => {
-		const isShowing = localStorage.getItem('isSearchInputShow') === 'true'; // true | false -> boolean
-		console.log('listener', isShowing);
-		setIsSearchInputShow(isShowing);
-	}
+	const { isSearchInputShow, hide, show } = useSearchStore();
+
 
 	//modify the url search params
 	const changePage = (page: number) => {
@@ -56,11 +52,12 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	}
 
 	//change the localstorage for access in Header
-	const setIsInputShow = (value: boolean) => {
-		//must put only 'true' or 'false' values
-		localStorage.setItem('isSearchInputShow', value ? 'true' : 'false');
-		//need this before every change in localstorage to trigger storage event listener
-		window.dispatchEvent(new Event("storage"));
+	const setIsInputShow = (needToshow: boolean) => {
+		if(needToshow) {
+			show();
+		} else {
+			hide();
+		}
 	}
 
 	//general function for searching movies
@@ -103,14 +100,6 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 			changePage(1);
 		}
 	}, [isSearchInputShow]);
-
-	useEffect(() => {
-		window.addEventListener('storage', storageListener);
-
-		return () => {
-			window.removeEventListener('storage', storageListener);
-		}
-	}, [])
 
 	console.log('movies data', moviesData);
 

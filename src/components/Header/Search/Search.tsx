@@ -5,20 +5,16 @@ import styles from './Search.module.scss';
 import { SearchInput } from './SearchInput';
 import { SearchButton } from '../../Movies/SearchButton/SearchButton';
 import cn from 'classnames'
+import { useSearchStore } from '@/store/useSearchStore';
 
 type PropsType = {};
 
 export const Search: React.FC<PropsType> = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
-	const [isInputShow, setIsInputShow] = useState<boolean>(false);
+	const {isSearchInputShow, hide, show} = useSearchStore();
 
 
-	const storageListener = () => {
-		const isShowing = localStorage.getItem('isSearchInputShow') === 'true';
-		console.log('is showing', isShowing); 
-		setIsInputShow(isShowing);
-	}
 
 	//manual focus on input, because box is bigger and has input appereance
 	const handleClick = () => {
@@ -34,17 +30,14 @@ export const Search: React.FC<PropsType> = () => {
 	inputRef.current?.addEventListener('focusout', inputFocusoutHandler);
 
 	useEffect(() => {
-		//this should wort on all pages
-		window.addEventListener('storage', storageListener);
 		return () => {
-			window.removeEventListener('storage', storageListener);
-			//inputRef.current?.removeEventListener('focusout', inputFocusoutHandler);
+			inputRef.current?.removeEventListener('focusout', inputFocusoutHandler);
 		}
 	}, [])
 
 	return (
 		<div className={cn(styles.Search, isInputFocused ? styles._focused : '')} onClick={handleClick}>
-			<div className={cn(styles.input, isInputShow ? styles._show : '')}>
+			<div className={cn(styles.input, isSearchInputShow ? styles._show : '')}>
 				<SearchInput ref={inputRef} />
 			</div>
 			{/* added id for react portal in Movies.tsx */}
