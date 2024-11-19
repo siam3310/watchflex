@@ -45,8 +45,8 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 
 	//chnages in local storage -> local state
 	const storageListener = () => {
-		console.log('listenerrr');
 		const isShowing = localStorage.getItem('isSearchInputShow') === 'true'; // true | false -> boolean
+		console.log('listener', isShowing);
 		setIsSearchInputShow(isShowing);
 	}
 
@@ -59,6 +59,8 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	const setIsInputShow = (value: boolean) => {
 		//must put only 'true' or 'false' values
 		localStorage.setItem('isSearchInputShow', value ? 'true' : 'false');
+		//need this before every change in localstorage to trigger storage event listener
+		window.dispatchEvent(new Event("storage"));
 	}
 
 	//general function for searching movies
@@ -135,7 +137,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 					/>
 				</>
 			: 
-				<p>No movies</p>
+				<p>No movies found</p>
 			}
 
 			{/* using portal to trigger requests form this file */}

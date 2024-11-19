@@ -15,18 +15,10 @@ export const Search: React.FC<PropsType> = () => {
 
 
 	const storageListener = () => {
-		const isShowing = localStorage.getItem('isSearchInputShow') == 'true';
+		const isShowing = localStorage.getItem('isSearchInputShow') === 'true';
+		console.log('is showing', isShowing); 
 		setIsInputShow(isShowing);
 	}
-
-	useEffect(() => {
-		window.addEventListener('storage', storageListener);
-		return () => {
-			window.removeEventListener('storage', storageListener);
-		}
-	}, [])
-		
-	console.log('local storage value', localStorage.getItem('isSearchInputShow'), 'is showing', isInputShow);
 
 	//manual focus on input, because box is bigger and has input appereance
 	const handleClick = () => {
@@ -43,9 +35,10 @@ export const Search: React.FC<PropsType> = () => {
 
 	useEffect(() => {
 		//this should wort on all pages
-		window.dispatchEvent(new Event("storage"));
+		window.addEventListener('storage', storageListener);
 		return () => {
-			inputRef.current?.removeEventListener('focusout', inputFocusoutHandler);
+			window.removeEventListener('storage', storageListener);
+			//inputRef.current?.removeEventListener('focusout', inputFocusoutHandler);
 		}
 	}, [])
 
