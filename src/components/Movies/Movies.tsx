@@ -94,7 +94,22 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 		})();
 	}, [page]);
 
+
+	//need this use effect because
+	//after invalid search movies count = 0, and page = 1
+	//if we return to popular soure the page will be 1 again and page use effect won't be triggered
 	useEffect(() => {
+		if(moviesSource === 'popular') {
+			(async () => {
+				const movies = await getMovies(page);
+				console.log('get popular movies');
+				setMoviesData(movies);
+			})();
+		}
+	}, [moviesSource]);
+
+	useEffect(() => {
+		console.log('is search input show', isSearchInputShow);
 		if(!isSearchInputShow) {
 			setMoviesSource('popular');
 			changePage(1);
@@ -125,8 +140,10 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 						pagesNum={moviesData?.totalPages || 0}
 					/>
 				</>
+			: moviesData?.results && moviesData.results.length === 0 ?
+				<p>Фільмів не знайдено</p>
 			: 
-				<p>No movies found</p>
+				<p>Erorr</p>
 			}
 
 			{/* using portal to trigger requests form this file */}
