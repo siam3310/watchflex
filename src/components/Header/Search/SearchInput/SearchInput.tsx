@@ -3,11 +3,13 @@
 import React, { forwardRef, Ref, useEffect, useState } from 'react';
 import styles from './SearchInput.module.scss';
 import cn from 'classnames'
+import { useSearchStore } from '@/store/useSearchStore';
 
 type PropsType = {};
 
 export const SearchInput = forwardRef<HTMLInputElement, PropsType>(({}, ref) => {
 	const [query, setQuery] = useState<string>('');
+	const { isSearchInputShow, hide, show } = useSearchStore(); 
 
 	const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
 		const value = e.currentTarget.value;
@@ -19,7 +21,11 @@ export const SearchInput = forwardRef<HTMLInputElement, PropsType>(({}, ref) => 
 	useEffect(() => {
 		localStorage.setItem('searchQuery', query);
 		//TODO: nulling the localstorage value "searchQuery"
-	}, [query])
+	}, [query]);
+
+	useEffect(() => {
+		setQuery('');
+	}, [isSearchInputShow])
 
 	return (
 		<input 

@@ -51,20 +51,23 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 		router.push(`/?page=${page || 1}`);
 	}
 
-	//change the localstorage for access in Header
+	//change the state
 	const setIsInputShow = (needToshow: boolean) => {
 		if(needToshow) {
 			show();
 		} else {
+			console.log('hude');
 			hide();
 		}
 	}
 
 	//general function for searching movies
 	const searchMovies = async () => {
+		setIsFetching(true);
 		const searchQuery = localStorage.getItem('searchQuery');
 		const data = await getMoviesByQuery(searchQuery || '', page);
 		console.log(data);
+		setIsFetching(false);
 		//@ts-expect-error
 		return data.error ? [] as MoviesDataType : data as MoviesDataType;
 	}
@@ -95,6 +98,10 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	}, [page]);
 
 
+	useEffect(() => {
+		console.log('is fetching', isFetching);
+	}, [isFetching]);
+
 	//need this use effect because
 	//after invalid search movies count = 0, and page = 1
 	//if we return to popular soure the page will be 1 again and page use effect won't be triggered
@@ -109,15 +116,10 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	}, [moviesSource]);
 
 	useEffect(() => {
-		console.log('is search input show', isSearchInputShow);
 		if(!isSearchInputShow) {
 			setMoviesSource('popular');
-			changePage(1);
 		}
 	}, [isSearchInputShow]);
-
-	console.log('movies data', moviesData);
-
 	
 	if(moviesData === undefined) {
 		//show error
@@ -142,8 +144,9 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 				</>
 			: moviesData?.results && moviesData.results.length === 0 ?
 				<p>Фільмів не знайдено</p>
-			: 
-				<p>Erorr</p>
+			: !isFetching ?
+				<p>Eroкr</p>
+			: <Preloader />
 			}
 
 			{/* using portal to trigger requests form this file */}
@@ -155,8 +158,6 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 				/>,
 				document.getElementById('header_searchBtn') || document.body
 			)}
-
-			{isFetching && <Preloader />}
 		</div>
 	)
 }
