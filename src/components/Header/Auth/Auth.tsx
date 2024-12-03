@@ -40,10 +40,10 @@ export const Auth: React.FC<PropsType> = () => {
 			:  
 				<LoginButton setActionStatus={setActionStatus} />
 			}
-			<LoginPopup 
+			{/* <LoginPopup 
 				isShow={isLoginPopupShow} 
 				setIsShow={setIsLoginPopupShow}
-			/>
+			/> */}
 		</div>
 	)
 }
