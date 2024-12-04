@@ -9,6 +9,16 @@
 		margin-right: $base;
 		max-width: $base * 80;
 		min-width: $base * 60;
+		@media (max-width: $md2) {
+			max-width: 100%;
+			min-width: auto;
+			width: 0;
+			display: none;
+			&._show {
+				display: block;
+				width: 100%;
+			}
+		}
 	}
 	.searchBtn {}
 }
