@@ -13,11 +13,14 @@ import { createPortal } from 'react-dom';
 import { SearchButton } from './SearchButton/SearchButton';
 import axios from 'axios';
 import { useSearchStore } from '@/store/useSearchStore';
+import { Filters } from '../Filters';
+import { FiltersType } from '../Filters/Filters';
 
 type PropsType = {};
 
-const getMovies = async (page: number): Promise<MoviesDataType | undefined> => {
-	const res = await axiosInstance.get(`/api/movies/popular?page=${page}`);
+const getMovies = async (page: number, source: FiltersType): Promise<MoviesDataType | undefined> => {
+	const endpoint = source.toLowerCase().replaceAll(' ', '_');
+	const res = await axiosInstance.get(`/api/movies/${endpoint}?page=${page}`);
 
 	const data = res.data as MoviesDataType | undefined;
 
@@ -41,7 +44,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	const [moviesData, setMoviesData] = useState<MoviesDataType>();
 	const [isFetching, setIsFetching] = useState<boolean>(false);
 	//TODO: close search -> method - popular
-	const [moviesSource, setMoviesSource] = useState<MoviesSourcesType>('popular');
+	const [moviesSource, setMoviesSource] = useState<FiltersType | 'Search'>('Popular');
 
 	const { isSearchInputShow, hide, show } = useSearchStore();
 
@@ -73,8 +76,8 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	}
 
 	const handleSearchBtnClick = async () => {
-		if(moviesSource !== 'search') {
-			setMoviesSource('search');
+		if(moviesSource !== 'Search') {
+			setMoviesSource('Search');
 		}
 		changePage(1);
 		const movies = await searchMovies();
@@ -87,7 +90,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 		(async () => {
 			setIsFetching(true);
 			const fetchedData = 
-				moviesSource === 'popular' ? await getMovies(page) 
+				moviesSource !== 'Search' ? await getMovies(page, moviesSource) 
 				: 
 				await searchMovies();
 			;
@@ -106,9 +109,9 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	//after invalid search movies count = 0, and page = 1
 	//if we return to popular soure the page will be 1 again and page use effect won't be triggered
 	useEffect(() => {
-		if(moviesSource === 'popular') {
+		if(moviesSource !== 'Search') {
 			(async () => {
-				const movies = await getMovies(page);
+				const movies = await getMovies(page, moviesSource);
 				console.log('get popular movies');
 				setMoviesData(movies);
 			})();
@@ -117,7 +120,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 
 	useEffect(() => {
 		if(!isSearchInputShow) {
-			setMoviesSource('popular');
+			setMoviesSource('Popular');
 		}
 	}, [isSearchInputShow]);
 	
@@ -129,6 +132,12 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 
 	return (
 		<div className={styles.Movies}>
+			<div className={styles.filters}>
+				<Filters
+					activeFilter={moviesSource !== 'Search' ? moviesSource : null}
+					setActive={setMoviesSource}
+				/>
+			</div>
 			{moviesData?.results && moviesData.results.length > 0 ?
 				<>
 					<div className={styles.list}>

@@ -1,6 +1,10 @@
 @import '../../app/globals.scss';
 
 .Movies {
+	margin-top: $base * 2;
+	.filters {
+		margin-bottom: $base * 2;
+	}
 	.list {
 		margin-bottom: $base * 4;
 	}

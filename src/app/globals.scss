@@ -69,6 +69,7 @@ $black: #000000;
   margin: 0 auto;
   padding: 0 $base * 10; //40
   max-width: $base * 295; //1180
+  width: 100%;
   @media (max-width: $md2) {
     padding: 0 $base * 4; //16
   }
