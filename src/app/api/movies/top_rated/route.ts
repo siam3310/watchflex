@@ -1,6 +1,14 @@
+import { RequestMoviesDataModel } from "@/models";
+import { ErrorReturnType, MoviesDataType } from "@/types";
+import { mapMovieData } from "@/utils/server/mapMovieData";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
+type ReturnType = 
+	NextResponse<MoviesDataType> | 
+	NextResponse<ErrorReturnType>
+;
+
+export const GET = async (req: NextRequest): Promise<ReturnType> => {
 	const page = req.nextUrl.searchParams.get('page');
 
 	const url = `https://api.themoviedb.org/3/movie/top_rated?language=uk-UA&page=${page}`;
@@ -13,11 +21,20 @@ export const GET = async (req: NextRequest) => {
 	};
 
 	const response = await fetch(url, options);
-	const data = response.json();
+	const data: RequestMoviesDataModel = await response.json();
+
+	console.log('response', response, data);
 
 	if(response.ok) {
-		return NextResponse.json({data}, {status: response.status});
+		return NextResponse.json({
+			results: mapMovieData(data.results.length > 0 ? data.results : []),
+			totalCount: data.total_results,
+			totalPages: data.total_pages,
+		}, {status: response.status});
 	} else {
-		return NextResponse.json({message: 'Some error occured'}, {status: response.status});
+		return NextResponse.json({
+			message: 'Some error occured',
+			error: true
+		}, {status: response.status});
 	}
 }

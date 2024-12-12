@@ -111,9 +111,14 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	useEffect(() => {
 		if(moviesSource !== 'Search') {
 			(async () => {
+				console.log('changed movies source');
+				setIsFetching(true);
+				//to hide previous results
+				setMoviesData(undefined);
 				const movies = await getMovies(page, moviesSource);
 				console.log('get popular movies');
 				setMoviesData(movies);
+				setIsFetching(false);
 			})();
 		}
 	}, [moviesSource]);
