@@ -33,8 +33,6 @@ const getMoviesByQuery = async (query: string, page: number) => {
 	return moviesData.data as MoviesDataType | ErrorReturnType;
 }
 
-type MoviesSourcesType = 'search' | 'popular';
-
 export const Movies: React.FC<PropsType>  = ({}) => {
 	const params = useSearchParams();
 	const router = useRouter();
@@ -109,6 +107,7 @@ export const Movies: React.FC<PropsType>  = ({}) => {
 	//after invalid search movies count = 0, and page = 1
 	//if we return to popular soure the page will be 1 again and page use effect won't be triggered
 	useEffect(() => {
+		console.log('change movies sourse');
 		if(moviesSource !== 'Search') {
 			(async () => {
 				console.log('changed movies source');
