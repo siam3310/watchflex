@@ -28,7 +28,7 @@ const getMovies = async (page: number, source: FiltersType): Promise<MoviesDataT
 }
 
 const getMoviesByQuery = async (query: string, page: number) => {
-	const moviesData = await axios.get(`/api/movies/search/${query}?page=${page}`);
+	const moviesData = await axiosInstance.get(`/api/movies/search/${query}?page=${page}`);
 
 	return moviesData.data as MoviesDataType | ErrorReturnType;
 }

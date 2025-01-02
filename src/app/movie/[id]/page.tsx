@@ -1,15 +1,14 @@
-import { GetStaticProps } from "next";
+import { MoviePoster } from "@/components/MoviePoster";
+import { axiosInstance } from "@/lib/axios";
+
 
 
 export default async function Page({ params }: { params: {id: string} }) {
-	const url = `https://api.themoviedb.org/3/find/external_id?external_source=${params.id}`;
-	const staticData = await fetch(url, { cache: 'force-cache' });
-	console.log(staticData);
 	const id = params.id;
+
 	return (
 		<div>
-			Movie with id
-			{id}
+			<MoviePoster id={id} />
 		</div>
 	)
 }

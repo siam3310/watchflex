@@ -2,6 +2,8 @@ import { parseSearchParams } from "@/utils/server/parseSearchParams";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest, context: any) => {
+	console.log('request images');
+
 	const { movieId } = context.params;
 
 	const url = `https://api.themoviedb.org/3/movie/${movieId}/images`;
