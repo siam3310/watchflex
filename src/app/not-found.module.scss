@@ -1,0 +1,15 @@
+@import './globals.scss';
+
+.NotFound {
+	@include center-align;
+	flex-direction: column;
+	flex: 1 1 auto;
+	.number {
+		margin-bottom: $base * 4;
+		font-size: 128px;
+		color: $primary;
+	}
+	.text {
+		font-size: 24px;
+	}
+}
