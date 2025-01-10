@@ -2,23 +2,7 @@ import React from 'react'
 import styles from './MoviePoster.module.scss';
 import { axiosInstance } from '@/lib/axios';
 import Image from 'next/image';
-
-type ImageDataType = {
-	aspect_ratio: number,
-	height: number,
-	iso_639_1: string,
-	file_path: string,
-	vote_average: number,
-	vote_count: number,
-	width: number,
-}
-
-type ImagesDataType = {
-	backdrops: ImageDataType[],
-	id: number,
-	logos: ImageDataType[],
-	posters: ImageDataType[],
-}
+import { ImagesDataType } from '@/types';
 
 type PropsType = {
 	id: string,
