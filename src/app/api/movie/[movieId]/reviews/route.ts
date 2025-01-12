@@ -1,6 +1,10 @@
+import { RequestReviewsResponseDataModel } from "@/models";
+import { ErrorReturnType } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest, context: any) => {
+type ReturnType = NextResponse<ErrorReturnType | RequestReviewsResponseDataModel>;
+
+export const GET = async (req: NextRequest, context: any): Promise<ReturnType> => {
 	const { movieId } = context.params;
 	const page = req.nextUrl.searchParams.get('page');
 
@@ -14,11 +18,11 @@ export const GET = async (req: NextRequest, context: any) => {
 	};
 
 	const response = await fetch(url, options);
-	const data = await response.json();
+	const data = await response.json() as RequestReviewsResponseDataModel;
 
 	if(response.ok) {
 		return NextResponse.json(data, { status: response.status });
 	} else {
-		return NextResponse.json({message: 'Some error occured'}, { status: response.status })
+		return NextResponse.json({error: true, message: 'Some error occured'}, { status: response.status })
 	}
 }

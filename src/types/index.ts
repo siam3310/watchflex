@@ -1,5 +1,22 @@
 export type ActionStatusType = 'loading' | 'error' | 'success';
 
+export type AuthorDetailsType = {
+	name: string,
+	username: string,
+	avatar_path: string,
+	rating: string,
+}
+
+export type ReviewType = {
+	author: string,
+	author_details: AuthorDetailsType,
+	content: string,
+	created_at: string,
+	id: string,
+	updated_at: string,
+	url: string,
+}
+
 export type ImageDataType = {
 	aspect_ratio: number,
 	height: number,

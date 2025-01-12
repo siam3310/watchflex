@@ -1,3 +1,13 @@
+import { ReviewType } from "@/types"
+
+export type RequestReviewsResponseDataModel = {
+	id: string,
+	page: number,
+	results: ReviewType[],
+	total_pages: string,
+	total_results: string,
+}
+
 export type SessionResponseDataModel = {
 	success: boolean,
 	session_id: string,
