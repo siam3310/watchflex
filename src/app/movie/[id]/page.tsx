@@ -1,4 +1,5 @@
 import { MovieInfo } from "@/components/MovieInfo";
+import styles from './page.module.scss';
 import { MoviePoster } from "@/components/MoviePoster";
 import { axiosInstance } from "@/lib/axios";
 import { ImagesDataType, MovieDataType, MovieDetailsType } from "@/types";
@@ -27,7 +28,7 @@ export default async function Page({ params }: { params: {id: string} }) {
 	const details = await getDetails(id) as MovieDetailsType;
 
 	return (
-		<div
+		<main
 			style={{
 				minHeight: '100vh',
 				backgroundImage: `url('http://image.tmdb.org/t/p/original/${bestBackdrop.file_path}')`,
@@ -35,15 +36,12 @@ export default async function Page({ params }: { params: {id: string} }) {
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: 'cover',
 			}}
+			className={styles.main}
 		>
-			{/* <MoviePoster 
-				id={id} 
-				// TODO: Get normal movie name
-				movieName={details.title}
-			/> */}
+			<div className={styles._backTint}></div>
 			<MovieInfo 
 				details={details}
 			/>
-		</div>
+		</main>
 	)
 }
