@@ -1,0 +1,8 @@
+@import '../../app/globals.scss';
+
+.MovieInfo {
+    position: relative;
+    margin-top: 100vh;
+    @include column-center-align;
+    z-index: 2;
+}

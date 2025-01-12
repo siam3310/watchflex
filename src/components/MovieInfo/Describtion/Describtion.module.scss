@@ -1,0 +1,52 @@
+@import '../../../app/globals.scss';
+
+.Describtion {
+    display: flex;
+    padding: $base * 5;
+    background-color: #fff;
+    border-radius: $base * 4;
+    .mainInfo {
+        @include column-align;
+        .text, .budget {
+            margin-bottom: $base * 2;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .budget {
+            font-style: italic;
+        }
+        .rating {
+            .starIcon {
+                width: $base * 4;
+                height: $base * 4;
+                color: rgb(255, 213, 0);
+            }
+        }
+        .genres {
+            display: flex;
+            gap: $base * 2;
+            margin-bottom: $base * 2;
+            .genre {
+                position: relative;
+                padding-left: $base * 2;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    width: $base;
+                    height: $base;
+                    border-radius: 50%;
+                    background-color: $primary;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+    }
+
+    .poster {
+        flex: 0 0 240px;
+        border-radius: $base;
+        overflow: hidden;
+    }
+}
