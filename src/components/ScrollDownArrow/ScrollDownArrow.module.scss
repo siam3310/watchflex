@@ -1,0 +1,34 @@
+@import '../../app/globals.scss';
+
+
+.ScrollDownArrow {
+    position: absolute;
+    left: 50%;
+    top: calc(100vh - $base * 30); // -headerHeihgt
+    @include center-align;
+    width: $base * 10;
+    height: $base * 10;
+    border: 1px solid #fff;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    .icon {
+        color: #fff;
+        font-size: 24px;
+        animation-duration: 2.5s;
+        animation-name: slide;
+        animation-delay: 3s;
+        animation-timing-function: ease-in;
+        animation-iteration-count: infinite;
+        @keyframes slide {
+            0% {
+                transform: translateY(0);
+            } 
+            5% {
+                transform: translateY($base);
+            }
+            10% {
+                transform: translateY(0);
+            }
+        }
+    }
+}

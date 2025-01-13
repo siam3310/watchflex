@@ -1,1 +1,22 @@
 @import '../../app/globals.scss';
+
+.Reviews {
+    position: relative;
+    z-index: 2;
+    .title {
+        font-size: $base * 16;
+        line-height: 1.5;
+        color: #fff;
+        font-weight: 500;
+    }
+    .reviewsList {
+        min-height: $base * 50;
+        padding: $base * 5;
+        border-radius: $base * 4;
+        background-color: #fff;
+    }
+    .noText {
+        font-size: $base * 4;
+        color: #000;
+    }
+}

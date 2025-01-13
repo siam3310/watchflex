@@ -4,5 +4,6 @@
     position: relative;
     margin-top: 100vh;
     @include column-center-align;
+    margin-bottom: $base * 20;
     z-index: 2;
 }
