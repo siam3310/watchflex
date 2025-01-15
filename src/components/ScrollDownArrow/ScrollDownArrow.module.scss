@@ -11,6 +11,8 @@
     border: 1px solid #fff;
     transform: translateX(-50%);
     border-radius: 50%;
+
+    background: transparent; //without that somehow background is full page background
     .icon {
         color: #fff;
         font-size: 24px;
