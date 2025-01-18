@@ -12,9 +12,7 @@ type PropsType = {
 export const MovieInfo: React.FC<PropsType> = ({details}) => {
     const { title, genres, adult, overview, vote_average, vote_count, poster_path, budget } = details;
 
-    const genresNames = genres.map(genre => genre.name);
-
-    console.log(details);
+    const genresNames = genres.map(genre => genre.name); 
 
     return (
         <div className={cn(styles.MovieInfo, 'container')}>

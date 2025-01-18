@@ -23,7 +23,7 @@ export const Reviews: React.FC<PropsType> = async ({id}) => {
     console.log(reviews);
 
     return (
-        <div className={cn(styles.Reviews, 'container')}>
+        <section className={cn(styles.Reviews, 'container')}>
             <h3 className={styles.title}>Відгуки</h3>
             <div className={styles.reviewsList}>
                 { reviews.results.length > 0 ?
@@ -34,6 +34,6 @@ export const Reviews: React.FC<PropsType> = async ({id}) => {
                     <p className={styles.noText}>Коментарів ще немає</p>
                 }
             </div>
-        </div>
+        </section>
     )
 }
