@@ -14,13 +14,17 @@ type PropsType = {
 export const Describtion: React.FC<PropsType> = ({text, posterUrl, rating, genresNames, budget}) => {
     console.log(text);
 
+    const shortenText = text.slice(0, 100)
+
+    console.log('text', shortenText);
+
     return (
         <div className={styles.Describtion}>
             <div className={styles.mainInfo}>
                 <p className={styles.text}>{text}</p>
                 <ul className={styles.genres}>
                     {genresNames.map(name => (
-                        <li className={styles.genre}>{name}</li>
+                        <li className={styles.genre} key={name}>{name}</li>
                     ))}
                 </ul>
                 <p className={styles.budget}>Бюджет: {budget} $</p>

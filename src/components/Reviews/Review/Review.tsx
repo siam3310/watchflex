@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import styles from './Review.module.scss';
 import Image from 'next/image'
 import { ReviewType } from '@/types';
@@ -10,8 +12,19 @@ type PropsType = {
 
 export const Review: React.FC<PropsType> = ({data}) => {
     const { author, author_details, content, created_at, id, updated_at, url } = data;
+    const [isFullText, setIsFullText] = useState<boolean>(false);
 
     const date = parseDate(created_at);
+
+    const shortedText = content.split(' ').slice(0, 100).join(' ')
+
+    const showMoreText = () => {
+        setIsFullText(true)
+    }
+
+    const hideFullText = () => {
+        setIsFullText(false)
+    }
 
     return (
         <div className={styles.Review}>
@@ -30,7 +43,19 @@ export const Review: React.FC<PropsType> = ({data}) => {
                     <p className={styles.date}>{date}</p>
                 </div>
                 <p className={styles.text}>
-                    {content}
+                    {shortedText.length == content.length ?
+                       content
+                    :   
+                        <>  
+                            {isFullText ? content : shortedText} 
+                            <button 
+                                className={styles.moreBtn}
+                                onClick={isFullText ? hideFullText : showMoreText}
+                            >
+                                {isFullText ? 'Менше' : 'Ще'}
+                            </button>
+                        </>
+                    }
                 </p>
             </div>
         </div>

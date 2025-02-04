@@ -31,6 +31,12 @@
 		}
 		.text {
 			line-height: 1.5;
+			.moreBtn {
+				display: inline-block;
+				margin-left: $base;
+				font-weight: 500;
+				opacity: 0.5;
+			}
 		}
 	}
 }
