@@ -3,11 +3,24 @@
 .Reviews {
     position: relative;
     z-index: 2;
-    .title {
-        font-size: $base * 16;
-        line-height: 1.5;
-        color: #fff;
-        font-weight: 500;
+    .top {
+        @include row-center-align;
+        .title {
+            font-size: $base * 16;
+            line-height: 1.5;
+            color: #fff;
+            font-weight: 500;
+        }
+        .addReviewBtn {
+            @include center-align;
+            width: $base * 20;
+            height: $base * 20;
+            font-size: $base * 14;
+            font-weight: 700;
+            color: #fff;
+            border: $base solid #fff;
+            border-radius: 50%;
+        }
     }
     .reviewsList {
         min-height: $base * 50;
