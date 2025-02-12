@@ -1,0 +1,23 @@
+@import '../../../app/globals.scss';
+
+.AddPopup {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	.body {
+		.top {
+			display: flex;
+			flex
+			.title {
+				font-size: $base * 5;
+				font-weight: 500;
+			}
+			.closeBtn {
+				font-size: $base * 4;
+			}
+		}
+	}
+}
