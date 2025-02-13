@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Reviews.module.scss';
 import { axiosInstance } from '@/lib/axios';
 import { Review } from './Review';
 import { RequestReviewsResponseDataModel } from '@/models';
 import cn from 'classnames'
 import { AddPopup } from './AddPopup';
+import { useBodyStore } from '@/store/useBodyStore';
 
 type PropsType = {
     id: string
@@ -24,18 +25,31 @@ export const Reviews: React.FC<PropsType> = async ({id}) => {
     const [isAddReviewPopupShowing, setIsAddReviewPopupShowing] = useState<boolean>(false);
     const reviews = await getReviews(id) as RequestReviewsResponseDataModel;
 
+    useEffect(() => {
+        // if(isAddReviewPopupShowing) {
+        //     document.body.classList.add('overflow-y-hidden')
+        // } else {
+        //     document.body.classList.remove("overflow-y-hidden")
+        // }
+    }, [isAddReviewPopupShowing])
+
+    const handleClick = () => {
+        const currStatus = isAddReviewPopupShowing;
+        setIsAddReviewPopupShowing(currStatus);   
+    }
+
     console.log(reviews);
 
     return (
         <section className={cn(styles.Reviews, 'container')}>
             <div className={styles.top}>
                 <h3 className={styles.title}>Відгуки</h3>
-                <button className={styles.addReviewBtn}>+</button>
+                <button className={styles.addReviewBtn} onClick={handleClick}>+</button>
             </div>
             <div className={styles.reviewsList}>
                 { reviews.results.length > 0 ?
                     reviews.results.map(data => (
-                        <Review data={data}  />
+                        <Review data={data} key={data.id}/>
                     ))
                 :
                     <p className={styles.noText}>Коментарів ще немає</p>

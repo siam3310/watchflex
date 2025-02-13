@@ -6,6 +6,7 @@
     .top {
         @include row-center-align;
         .title {
+            margin-right: $base * 2;
             font-size: $base * 16;
             line-height: 1.5;
             color: #fff;
@@ -13,13 +14,14 @@
         }
         .addReviewBtn {
             @include center-align;
-            width: $base * 20;
-            height: $base * 20;
-            font-size: $base * 14;
+            width: $base * 10;
+            height: $base * 10;
+            font-size: $base * 8;
             font-weight: 700;
             color: #fff;
             border: $base solid #fff;
             border-radius: 50%;
+            cursor: pointer;
         }
     }
     .reviewsList {

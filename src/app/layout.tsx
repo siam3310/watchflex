@@ -5,6 +5,7 @@ import "./globals.scss";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import cn from 'classnames';
+import { useBodyStore } from "@/store/useBodyStore";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
