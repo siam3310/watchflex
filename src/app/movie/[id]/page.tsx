@@ -20,6 +20,16 @@ const getDetails = async (id: string) => {
 	return data;
 }
 
+const getReviews = async (id: string) => {
+    const response = await axiosInstance.get(`/api/movie/${id}/reviews`);
+
+    console.log('axios response', response)
+
+    const data = response.data;
+
+    return data;
+}
+
 export default async function Page({ params }: { params: {id: string} }) {
 	const id = params.id;
 
@@ -28,6 +38,7 @@ export default async function Page({ params }: { params: {id: string} }) {
 	const bestBackdrop = data.backdrops.sort((a, b) => a.vote_average > b.vote_average ? 1 : -1)[0];
 
 	const details = await getDetails(id) as MovieDetailsType;
+	const reviews = getReviews(id)
 
 	return (
 		<main
@@ -45,7 +56,7 @@ export default async function Page({ params }: { params: {id: string} }) {
 			<MovieInfo 
 				details={details}
 			/>
-			<Reviews id={id} />
+			<Reviews id={id} reviews={reviews}/>
 		</main>
 	)
 }

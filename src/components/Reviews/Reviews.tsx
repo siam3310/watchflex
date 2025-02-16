@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { use, useState } from 'react'
 import styles from './Reviews.module.scss';
 import { axiosInstance } from '@/lib/axios';
 import { Review } from './Review';
@@ -10,35 +10,20 @@ import { AddPopup } from './AddPopup';
 import { useBodyStore } from '@/store/useBodyStore';
 
 type PropsType = {
-    id: string
+    id: string, 
+    reviews: Promise<RequestReviewsResponseDataModel>,
 };
 
-const getReviews = async (id: string) => {
-    const response = await axiosInstance.get(`/api/movie/${id}/reviews`);
-
-    const data = response.data;
-
-    return data;
-}
-
-export const Reviews: React.FC<PropsType> = async ({id}) => {
+export const Reviews: React.FC<PropsType> = async ({id, reviews}) => {
     const [isAddReviewPopupShowing, setIsAddReviewPopupShowing] = useState<boolean>(false);
-    const reviews = await getReviews(id) as RequestReviewsResponseDataModel;
-
-    useEffect(() => {
-        // if(isAddReviewPopupShowing) {
-        //     document.body.classList.add('overflow-y-hidden')
-        // } else {
-        //     document.body.classList.remove("overflow-y-hidden")
-        // }
-    }, [isAddReviewPopupShowing])
+    const reviewsData = await use(reviews);
 
     const handleClick = () => {
         const currStatus = isAddReviewPopupShowing;
-        setIsAddReviewPopupShowing(currStatus);   
+        setIsAddReviewPopupShowing(!currStatus);  
     }
 
-    console.log(reviews);
+    console.log(reviewsData);
 
     return (
         <section className={cn(styles.Reviews, 'container')}>
@@ -47,8 +32,8 @@ export const Reviews: React.FC<PropsType> = async ({id}) => {
                 <button className={styles.addReviewBtn} onClick={handleClick}>+</button>
             </div>
             <div className={styles.reviewsList}>
-                { reviews.results.length > 0 ?
-                    reviews.results.map(data => (
+                { reviewsData.results.length > 0 ?
+                    reviewsData.results.map(data => (
                         <Review data={data} key={data.id}/>
                     ))
                 :
